@@ -4,24 +4,49 @@ import { Link } from "react-router-dom";
 
 import "../Styles/Home.less";
 import { UserContext } from "../../Contexts/UserContext";
-import { getBasicInfo } from "../../Actions/SpotifyFetch";
+import { getBasicInfo, getTop } from "../../Actions/SpotifyFetch";
 
 import TopChart from "./TopChart";
+import SideInfo from "./SideInfo";
 
 import { Text } from "antd";
 
 const Home = () => {
   const { user } = React.useContext(UserContext);
   const { Text, Title } = Typography;
+
   const [userName, setUserName] = useState("Loading...");
 
+  const [topData, setTopData] = useState({ tracks: [], artists: [] });
+  const [topDataType, setTopDataType] = useState("tracks");
+  const [topDataLimit, setTopDataLimit] = useState(5);
+  const [topDataLoading, setTopDataLoading] = useState(true);
+
   useEffect(() => {
-    getBasicInfo(user).then((data) => {
+    if (user !== null) {
       try {
-        setUserName(data.display_name);
+        getBasicInfo(user).then((data) => {
+          setUserName(data.display_name);
+        });
       } catch {}
-    });
+    }
   }, [user]);
+
+  useEffect(() => {
+    if (user !== null) {
+      try {
+        getTop(user, topDataType, topDataLimit).then((data) => {
+          console.log(data);
+          setTopData({
+            ...topData,
+            [topDataType]: data.items,
+          });
+          setTopDataLoading(false);
+          console.log(topData);
+        });
+      } catch {}
+    }
+  }, [topDataLimit, topDataType, user]);
 
   return (
     <div className="main-content">
@@ -32,17 +57,15 @@ const Home = () => {
         <h2>Your Spotify listening habits, "Spotalyzed"</h2>
       </div>
       <div className="card-container">
-        <TopChart />
-        <Card
-          style={{
-            borderRadius: "1.5rem",
-            boxShadow: "0px 8px 15px -2px rgba(0,0,0,0.1)",
-            width: "33rem",
-            height: "300px",
-          }}
-        >
-          <></>
-        </Card>
+        <TopChart
+          topData={topData}
+          setTopDataType={setTopDataType}
+          topDataType={topDataType}
+          setTopDataLimit={setTopDataLimit}
+          topDataLoading={topDataLoading}
+          topDataLimit={topDataLimit}
+        />
+        <SideInfo />
       </div>
     </div>
   );
