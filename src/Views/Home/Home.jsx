@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Card, Typography } from "antd";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import "../Styles/Home.less";
 import { UserContext } from "../../Contexts/UserContext";
 import { getBasicInfo, getTop } from "../../Actions/SpotifyFetch";
+import { verifyToken } from "../../Actions/SpotifyLogin";
 
 import TopChart from "./TopChart";
 import SideInfo from "./SideInfo";
@@ -14,6 +15,7 @@ import { Text } from "antd";
 const Home = () => {
   const { user } = React.useContext(UserContext);
   const { Text, Title } = Typography;
+  const navigate = useNavigate();
 
   const [userName, setUserName] = useState("Loading...");
 
@@ -23,12 +25,20 @@ const Home = () => {
   const [topDataLoading, setTopDataLoading] = useState(true);
 
   useEffect(() => {
+    if (localStorage.getItem("SpotifyToken") == null) {
+      navigate("/login");
+    }
+  }, []);
+
+  useEffect(() => {
     if (user !== null) {
       try {
         getBasicInfo(user).then((data) => {
           setUserName(data.display_name);
         });
-      } catch {}
+      } catch {
+        navigate("/login");
+      }
     }
   }, [user]);
 

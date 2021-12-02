@@ -19,7 +19,8 @@
     "react-scripts": "^4.0.3",
     "request": "^2.88.2",
     "web-vitals": "^1.1.2",
-    "yarn": "^1.22.17"
+    "yarn": "^1.22.17",
+    "yarn.lock": "^0.0.1-security"
   },
   "scripts": {
     "start": "craco start",

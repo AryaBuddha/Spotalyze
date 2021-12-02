@@ -23,7 +23,6 @@ const TopChart = ({
       style={{
         borderRadius: "1.5rem",
         width: "80rem",
-
         boxShadow: "0px 8px 15px -2px rgba(0,0,0,0.1)",
         marginBottom: "10px",
       }}
@@ -113,7 +112,7 @@ const TopChart = ({
                 );
               })}
           <Text
-            style={{ color: "#1DB954" }}
+            style={{ color: "#1DB954", cursor: "pointer" }}
             onClick={() => {
               setTopDataLimit((topDataLimit += 5));
               console.log(topDataLimit);

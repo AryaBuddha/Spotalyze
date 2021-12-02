@@ -1,8 +1,11 @@
 import React from "react";
 
-import { Card } from "antd";
+import "../Styles/SideInfo.less";
+
+import { Card, Progress, Typography } from "antd";
 
 const SideInfo = () => {
+  const { Title, Text } = Typography;
   return (
     <Card
       style={{
@@ -12,7 +15,29 @@ const SideInfo = () => {
         height: "300px",
       }}
     >
-      <></>
+      <div className="side-container">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Progress
+            type="dashboard"
+            gapDegree={80}
+            percent={80}
+            strokeColor="#1DB954"
+            width={200}
+            style={{ marginBottom: "-2rem" }}
+          />
+          <Text style={{ fontSize: "1.3rem", alignSelf: "center" }}>
+            Taste Rating
+          </Text>
+        </div>
+        <div>
+          <Text>Your most popular songs are: Yourrurururu</Text>
+        </div>
+      </div>
     </Card>
   );
 };
