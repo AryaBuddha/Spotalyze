@@ -11,6 +11,7 @@ import TopChart from "./TopChart";
 import SideInfo from "./SideInfo";
 
 import { Text } from "antd";
+import Recommendations from "../Recommendations";
 
 const Home = () => {
   const { user } = React.useContext(UserContext);
@@ -42,21 +43,33 @@ const Home = () => {
     }
   }, [user]);
 
+  const populateTopData = async () => {
+    let tracks;
+    let artists;
+    try {
+      getTop(user, "artists", topDataLimit).then((data) => {
+        console.log(data);
+        artists = data.items;
+
+        console.log(topData);
+        getTop(user, "tracks", topDataLimit).then((data) => {
+          console.log(data);
+          tracks = data.items;
+          console.log(topData);
+          setTopData({ tracks: tracks, artists: artists });
+          setTopDataLoading(false);
+        });
+      });
+    } catch {}
+    try {
+    } catch {}
+  };
+
   useEffect(() => {
     if (user !== null) {
-      try {
-        getTop(user, topDataType, topDataLimit).then((data) => {
-          console.log(data);
-          setTopData({
-            ...topData,
-            [topDataType]: data.items,
-          });
-          setTopDataLoading(false);
-          console.log(topData);
-        });
-      } catch {}
+      populateTopData();
     }
-  }, [topDataLimit, topDataType, user]);
+  }, [topDataLimit, user]);
 
   return (
     <div className="main-content">
@@ -75,7 +88,15 @@ const Home = () => {
           topDataLoading={topDataLoading}
           topDataLimit={topDataLimit}
         />
-        <SideInfo />
+        <SideInfo
+          topData={topData}
+          setTopDataType={setTopDataType}
+          topDataType={topDataType}
+          setTopDataLimit={setTopDataLimit}
+          topDataLoading={topDataLoading}
+          topDataLimit={topDataLimit}
+        />
+        {/* <Recommendations /> */}
       </div>
     </div>
   );

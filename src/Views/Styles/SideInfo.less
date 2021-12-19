@@ -2,6 +2,33 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+@media only screen and (max-device-width: 500px) {
+  .side-text {
+    min-width: none;
+  }
+  .genre-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    margin-top: 20px;
+  }
+}
+
+@media only screen and (min-device-width: 500px) {
+  .side-text {
+    max-width: 13rem;
+  }
+  .genre-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 180px;
+    align-content: center;
+    margin-top: 10px;
+  }
 }

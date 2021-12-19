@@ -4,6 +4,7 @@ import { Card, Typography, Spin, Radio } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
 import "../Styles/Home.less";
+import InfoCard from "../Shared/InfoCard";
 
 const TopChart = ({
   topData,
@@ -27,7 +28,7 @@ const TopChart = ({
         marginBottom: "10px",
       }}
     >
-      {topDataLoading ? (
+      {topDataLoading && topData ? (
         <Spin style={{ marginLeft: "50%" }} indicator={antIcon} />
       ) : (
         <>
@@ -47,6 +48,7 @@ const TopChart = ({
               onChange={(e) => {
                 setTopDataType(e.target.value);
                 setTopDataLimit(5);
+                console.log(topData);
               }}
             >
               <Radio.Button value="tracks">Tracks</Radio.Button>
@@ -54,63 +56,11 @@ const TopChart = ({
             </Radio.Group>
           </div>
 
-          {topDataType == "artists"
-            ? topData[topDataType].map(({ name, images, popularity }) => {
-                return (
-                  <div key={name} className="track-card">
-                    <img
-                      style={{
-                        borderRadius: "5px",
-                        height: "64px",
-                        width: "64px",
-                      }}
-                      src={images[2].url}
-                    />
-                    <div
-                      style={{
-                        marginLeft: "20px",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignContent: "space-around",
-                      }}
-                    >
-                      <Title level={4}>{name}</Title>
-                      <Text>{popularity}% Popular</Text>
-                    </div>
-                    <br />
-                  </div>
-                );
-              })
-            : topData[topDataType].map(({ name, album, artists }) => {
-                return (
-                  <div key={name} className="track-card">
-                    <img
-                      style={{ borderRadius: "5px" }}
-                      src={album.images[2].url}
-                    />
-                    <div
-                      style={{
-                        marginLeft: "20px",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignContent: "space-around",
-                      }}
-                    >
-                      <Title level={4}>{name}</Title>
-                      <div>
-                        {artists.map(({ name }, i) => {
-                          if (i === artists.length - 1) {
-                            return <Text>{name}</Text>;
-                          } else {
-                            return <Text>{`${name}, `}</Text>;
-                          }
-                        })}
-                      </div>
-                    </div>
-                    <br />
-                  </div>
-                );
-              })}
+          <InfoCard
+            artistData={topData["artists"]}
+            trackData={topData["tracks"]}
+            topDataType={topDataType}
+          />
           <Text
             style={{ color: "#1DB954", cursor: "pointer" }}
             onClick={() => {
