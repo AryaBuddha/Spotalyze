@@ -45,3 +45,15 @@ export const getTrackRecommendations = async (token, seed_genres, seed_tracks, l
 
 
 }
+
+export const getArtistRecommendations = async (token, seed_artist) => {
+
+    const res = await axios.get(`https://api.spotify.com/v1/artists/${seed_artist}/related-artists`, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+
+    return res.data;
+
+}

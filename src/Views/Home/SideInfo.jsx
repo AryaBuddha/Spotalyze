@@ -93,6 +93,7 @@ const SideInfo = ({
                     whileTap={{ scale: 0.9 }}
                   >
                     <Tag
+                      key={genre.id}
                       color={
                         "#" + (Math.random().toString(16) + "00000").slice(2, 8)
                       }

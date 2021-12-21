@@ -5,11 +5,13 @@ import { motion } from "framer-motion";
 
 import "../Styles/Recommendations.less";
 import InfoCard from "../Shared/InfoCard";
+import { getArtistRecommendations } from "../../Actions/SpotifyFetch";
 
 const Recommendations = ({
   trackRecommendations,
   setRecommendationLimit,
   recommendationLimit,
+  artistRecommendations,
 }) => {
   const { Title, Text } = Typography;
 
@@ -42,7 +44,7 @@ const Recommendations = ({
           </Button>
         </div>
         <div className="sections-container">
-          <div style={{ width: "50rem" }}>
+          <div style={{ width: "50rem", marginBottom: "20px" }}>
             {!trackRecommendations ? (
               <div></div>
             ) : (
@@ -66,7 +68,18 @@ const Recommendations = ({
           </div>
 
           <div style={{ width: "50rem" }}>
-            <Text style={{ fontSize: "1.1rem" }}>Artists</Text>
+            {!artistRecommendations ? (
+              <div></div>
+            ) : (
+              <div>
+                <Text style={{ fontSize: "1.25rem" }}>Artists</Text>
+                <td style={{ paddingBottom: "20px" }} />
+                <InfoCard
+                  dataType={"artists"}
+                  artistData={artistRecommendations}
+                />
+              </div>
+            )}
           </div>
         </div>
       </motion.div>

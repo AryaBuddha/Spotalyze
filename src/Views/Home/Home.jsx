@@ -7,6 +7,7 @@ import {
   getBasicInfo,
   getTop,
   getTrackRecommendations,
+  getArtistRecommendations,
 } from "../../Actions/SpotifyFetch";
 import { verifyToken } from "../../Actions/SpotifyLogin";
 
@@ -31,7 +32,7 @@ const Home = () => {
   const [genres, setGenres] = useState(null);
 
   const [trackRecommendations, setTrackRecommendations] = useState(null);
-  const [artistRecommendations, setArtistRecommendations] = useState(null);
+  const [artistRecommendations, setArtistRecommendations] = useState([]);
   const [recommendationLimit, setRecommendationLimit] = useState(5);
 
   useEffect(() => {
@@ -100,7 +101,6 @@ const Home = () => {
       tracks.push(track.id);
     });
 
-    artists = artists.slice(0, 5).join("%2C");
     seed_genres = seed_genres.slice(0, 2).join("%2C");
     tracks = tracks.slice(0, 3).join("%2C");
 
@@ -124,18 +124,42 @@ const Home = () => {
   }, [topDataLoading, topData]);
 
   useEffect(() => {
-    console.log(user);
     if (user && genres) {
       const seeds = getSeeds();
+      if (
+        trackRecommendations == null ||
+        trackRecommendations.length != recommendationLimit
+      ) {
+        console.log(recommendationLimit);
+        getTrackRecommendations(
+          user,
+          seeds.genres,
+          seeds.tracks,
+          recommendationLimit
+        ).then((data) => {
+          if (trackRecommendations) {
+            setTrackRecommendations(
+              trackRecommendations.concat(data.tracks.slice(0, 5))
+            );
+          } else {
+            setTrackRecommendations(data.tracks);
+          }
+        });
+      }
 
-      getTrackRecommendations(
-        user,
-        seeds.genres,
-        seeds.tracks,
-        recommendationLimit
-      ).then((data) => {
-        setTrackRecommendations(data.tracks);
-      });
+      let artistRecs = [];
+      for (let artist of seeds.artists) {
+        console.log(artist);
+        getArtistRecommendations(user, artist).then((data) => {
+          artistRecs.push(
+            data.artists.slice(0, Math.trunc(recommendationLimit / 5))[0]
+          );
+          setTimeout(() => {
+            setArtistRecommendations(artistRecs);
+          }, 100);
+          console.log(artistRecs);
+        });
+      }
     }
   }, [user, genres, recommendationLimit]);
 
@@ -175,6 +199,7 @@ const Home = () => {
           genres={genres}
           recommendationLimit={recommendationLimit}
           setRecommendationLimit={setRecommendationLimit}
+          artistRecommendations={artistRecommendations}
         />
       </div>
     </div>
