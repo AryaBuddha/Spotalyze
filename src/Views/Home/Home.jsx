@@ -45,6 +45,7 @@ const Home = () => {
     if (user !== null) {
       try {
         getBasicInfo(user).then((data) => {
+          console.log(data);
           setUserName(data.display_name);
         });
       } catch {

@@ -39,9 +39,6 @@ const Recommendations = ({
           }}
         >
           <h2>Your recommendations:</h2>
-          <Button type="default">
-            <Text>Create Playlist</Text>
-          </Button>
         </div>
         <div className="sections-container">
           <div style={{ width: "50rem", marginBottom: "20px" }}>

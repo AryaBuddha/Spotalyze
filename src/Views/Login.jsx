@@ -15,6 +15,8 @@ const Login = () => {
   const { Text, Title } = Typography;
   const { user, setUser } = React.useContext(UserContext);
 
+  document.title = "Spotalyze | Login";
+
   const getToken = () => {
     var hashParams = {};
     var e,
@@ -91,5 +93,3 @@ const Login = () => {
 };
 
 export default Login;
-
-//https://accounts.spotify.com/authorize?client_id=2fe21d420740484e93fc1634f8cf1071&response_type=code&scope=user-top-read%20user-library-read%20user-read-recently-played&redirect_uri=http://localhost:3000/login

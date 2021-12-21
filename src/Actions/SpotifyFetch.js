@@ -29,12 +29,6 @@ export const getTop = async (token, type, limit) => {
 export const getTrackRecommendations = async (token, seed_genres, seed_tracks, limit) => {
 
 
-
-    console.log(seed_genres)
-    console.log(seed_tracks);
-    console.log(`https://api.spotify.com/v1/recommendations?seed_genres=${seed_genres}&seed_tracks=${seed_tracks}&limit=${limit}`)
-
-
     const res = await axios.get(`https://api.spotify.com/v1/recommendations?seed_genres=${seed_genres}&seed_tracks=${seed_tracks}&limit=${limit}`, {
         headers: {
             "Authorization": `Bearer ${token}`

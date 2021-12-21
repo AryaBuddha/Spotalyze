@@ -22,6 +22,8 @@ const App = () => {
     [userData, setUserData]
   );
 
+  document.title = "Spotalyze";
+
   useEffect(() => {
     const storedToken = localStorage.getItem("SpotifyToken");
     if (storedToken !== null) {
