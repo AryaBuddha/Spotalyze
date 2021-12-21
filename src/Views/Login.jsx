@@ -72,7 +72,7 @@ const Login = () => {
               boxShadow: " 0px 8px 15px -2px rgba(0,0,0,0.1)",
             }}
             onClick={() => {
-              window.location.href = `https://accounts.spotify.com/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=token&scope=user-top-read%20user-library-read%20user-read-recently-played&redirect_uri=http://localhost:3000/login`;
+              window.location.href = `https://accounts.spotify.com/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=token&scope=user-top-read%20user-library-read%20user-read-recently-played&redirect_uri=https://cranky-poincare-a82dde.netlify.app/login`;
             }}
           >
             <img style={{ maxWidth: "8%" }} src={WhiteSpotifyLogo} />
