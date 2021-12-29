@@ -38,7 +38,7 @@ const Recommendations = ({
             alignItems: "center",
           }}
         >
-          <h2>Your recommendations:</h2>
+          <h2>Your recommendations:</h2>1
         </div>
         <div className="sections-container">
           <div style={{ width: "50rem", marginBottom: "20px" }}>

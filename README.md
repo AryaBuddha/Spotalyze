@@ -1,70 +1,67 @@
-# Getting Started with Create React App
+# Spotalyze
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Analyze your listening habits and visualize your data/recommendations.
 
-## Available Scripts
+Spotalyze communicates with the Spotify API to fetch your listening habits and use that data to make intelligent suggestions of artists and songs you may like. It also gives you a "Taste Rating" which is a number that determines how popular your music taste is compared to the whole of Spotify users.
 
-In the project directory, you can run:
+&nbsp;
 
-### `npm start`
+## Live Site
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+https://cranky-poincare-a82dde.netlify.app/
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+_Note: recommendations will NOT work as Spotify restricts them to verified apps. You can see your recommendations by running the server on your own computer_
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+&nbsp;
 
-### `npm run build`
+## How do I run it?
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Clone the repository:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+git clone https://github.com/AryaBuddha/Spotalyze
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+&nbsp;
 
-### `npm run eject`
+### Download all required dependencies
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+(make sure NodeJS and Yarn are installed):
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+yarn install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+&nbsp;
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Setup Spotify Developer App:
 
-## Learn More
+Go to the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications) and click _Create An App_. Next, click _Edit Settings_ and set the _Redirect URIs_ to `http://localhost:3000/login` (Or the default port of React on your computer). Click _Save_. Copy your **Client ID** and **Client Secret**.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+&nbsp;
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Create an env file:
 
-### Code Splitting
+Create a `.env` file at the root of your directory. Fill it with the following:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+REACT_APP_CLIENT_SECRET=<Client Secret>
+REACT_APP_CLIENT_ID=<Client ID>
+REACT_APP_REDIRECT_URI=<Redirect URI>
+```
 
-### Analyzing the Bundle Size
+_Replace everything between the <> with your own values_
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+&nbsp;
 
-### Making a Progressive Web App
+### Start the Server:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```
+yarn start
+```
 
-### Advanced Configuration
+Navigate to the URI you provided to Spotify, but without the `/login`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Ex: `http://localhost:3000/login` would instead be `http://localhost:3000`.
